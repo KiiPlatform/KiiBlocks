@@ -19,22 +19,7 @@
 		CA866D0C1822B4A100B552A5 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CA866D0B1822B4A100B552A5 /* MyScene.m */; };
 		CA866D0E1822B4A100B552A5 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = CA866D0D1822B4A100B552A5 /* Spaceship.png */; };
 		CA866D101822B4A100B552A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA866D0F1822B4A100B552A5 /* Images.xcassets */; };
-		CA866D171822B4A100B552A5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866D161822B4A100B552A5 /* XCTest.framework */; };
-		CA866D181822B4A100B552A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866CF01822B4A100B552A5 /* Foundation.framework */; };
-		CA866D191822B4A100B552A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866CF41822B4A100B552A5 /* UIKit.framework */; };
-		CA866D211822B4A100B552A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA866D1F1822B4A100B552A5 /* InfoPlist.strings */; };
-		CA866D231822B4A100B552A5 /* KiiBlocksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CA866D221822B4A100B552A5 /* KiiBlocksTests.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CA866D1A1822B4A100B552A5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA866CE51822B4A100B552A5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CA866CEC1822B4A100B552A5;
-			remoteInfo = KiiBlocks;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		CA866CED1822B4A100B552A5 /* KiiBlocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiiBlocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,11 +40,7 @@
 		CA866D0B1822B4A100B552A5 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		CA866D0D1822B4A100B552A5 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		CA866D0F1822B4A100B552A5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CA866D151822B4A100B552A5 /* KiiBlocksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiiBlocksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA866D161822B4A100B552A5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		CA866D1E1822B4A100B552A5 /* KiiBlocksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KiiBlocksTests-Info.plist"; sourceTree = "<group>"; };
-		CA866D201822B4A100B552A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CA866D221822B4A100B552A5 /* KiiBlocksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiiBlocksTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,16 +55,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CA866D121822B4A100B552A5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CA866D171822B4A100B552A5 /* XCTest.framework in Frameworks */,
-				CA866D191822B4A100B552A5 /* UIKit.framework in Frameworks */,
-				CA866D181822B4A100B552A5 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				CA866CF81822B4A100B552A5 /* KiiBlocks */,
-				CA866D1C1822B4A100B552A5 /* KiiBlocksTests */,
 				CA866CEF1822B4A100B552A5 /* Frameworks */,
 				CA866CEE1822B4A100B552A5 /* Products */,
 			);
@@ -101,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				CA866CED1822B4A100B552A5 /* KiiBlocks.app */,
-				CA866D151822B4A100B552A5 /* KiiBlocksTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,24 +115,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CA866D1C1822B4A100B552A5 /* KiiBlocksTests */ = {
-			isa = PBXGroup;
-			children = (
-				CA866D221822B4A100B552A5 /* KiiBlocksTests.m */,
-				CA866D1D1822B4A100B552A5 /* Supporting Files */,
-			);
-			path = KiiBlocksTests;
-			sourceTree = "<group>";
-		};
-		CA866D1D1822B4A100B552A5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CA866D1E1822B4A100B552A5 /* KiiBlocksTests-Info.plist */,
-				CA866D1F1822B4A100B552A5 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -184,24 +135,6 @@
 			productReference = CA866CED1822B4A100B552A5 /* KiiBlocks.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CA866D141822B4A100B552A5 /* KiiBlocksTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CA866D291822B4A100B552A5 /* Build configuration list for PBXNativeTarget "KiiBlocksTests" */;
-			buildPhases = (
-				CA866D111822B4A100B552A5 /* Sources */,
-				CA866D121822B4A100B552A5 /* Frameworks */,
-				CA866D131822B4A100B552A5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CA866D1B1822B4A100B552A5 /* PBXTargetDependency */,
-			);
-			name = KiiBlocksTests;
-			productName = KiiBlocksTests;
-			productReference = CA866D151822B4A100B552A5 /* KiiBlocksTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -210,11 +143,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Kii Corporation";
-				TargetAttributes = {
-					CA866D141822B4A100B552A5 = {
-						TestTargetID = CA866CEC1822B4A100B552A5;
-					};
-				};
 			};
 			buildConfigurationList = CA866CE81822B4A100B552A5 /* Build configuration list for PBXProject "KiiBlocks" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -230,7 +158,6 @@
 			projectRoot = "";
 			targets = (
 				CA866CEC1822B4A100B552A5 /* KiiBlocks */,
-				CA866D141822B4A100B552A5 /* KiiBlocksTests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,14 +171,6 @@
 				CA866D101822B4A100B552A5 /* Images.xcassets in Resources */,
 				CA866D0E1822B4A100B552A5 /* Spaceship.png in Resources */,
 				CA866D061822B4A100B552A5 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA866D131822B4A100B552A5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CA866D211822B4A100B552A5 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,23 +188,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CA866D111822B4A100B552A5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CA866D231822B4A100B552A5 /* KiiBlocksTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CA866D1B1822B4A100B552A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CA866CEC1822B4A100B552A5 /* KiiBlocks */;
-			targetProxy = CA866D1A1822B4A100B552A5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CA866CFB1822B4A100B552A5 /* InfoPlist.strings */ = {
@@ -302,14 +205,6 @@
 				CA866D051822B4A100B552A5 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CA866D1F1822B4A100B552A5 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CA866D201822B4A100B552A5 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -415,48 +310,6 @@
 			};
 			name = Release;
 		};
-		CA866D2A1822B4A100B552A5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KiiBlocks.app/KiiBlocks";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KiiBlocks/KiiBlocks-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "KiiBlocksTests/KiiBlocksTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		CA866D2B1822B4A100B552A5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KiiBlocks.app/KiiBlocks";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KiiBlocks/KiiBlocks-Prefix.pch";
-				INFOPLIST_FILE = "KiiBlocksTests/KiiBlocksTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -476,14 +329,7 @@
 				CA866D281822B4A100B552A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		CA866D291822B4A100B552A5 /* Build configuration list for PBXNativeTarget "KiiBlocksTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CA866D2A1822B4A100B552A5 /* Debug */,
-				CA866D2B1822B4A100B552A5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
