@@ -16,7 +16,7 @@ Each tutorial will have a tag in this Github project's **Releases** section so y
 ### Part 1: Getting started with SpriteKit
 The first part in a video series for building an iOS game using SpriteKit and Kii Cloud. This installment will show how to create a SpriteKit project and test out the built-in physics engine.
 
-Relevant code is under the tag *tutorial-1* located [here](https://github.com/KiiPlatform/KiiBlocks/releases/tag/tutorial-1)
+Relevant code is under the tag **tutorial-1** located [here](https://github.com/KiiPlatform/KiiBlocks/releases/tag/tutorial-1)
 
 
 ## What is Kii Cloud?
