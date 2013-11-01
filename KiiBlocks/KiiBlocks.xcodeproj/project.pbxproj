@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA0442B918240EA3007C0AC9 /* BlockNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0442B818240EA3007C0AC9 /* BlockNode.m */; };
 		CA866CF11822B4A100B552A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866CF01822B4A100B552A5 /* Foundation.framework */; };
 		CA866CF31822B4A100B552A5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866CF21822B4A100B552A5 /* CoreGraphics.framework */; };
 		CA866CF51822B4A100B552A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA866CF41822B4A100B552A5 /* UIKit.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA0442B718240EA3007C0AC9 /* BlockNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockNode.h; sourceTree = "<group>"; };
+		CA0442B818240EA3007C0AC9 /* BlockNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockNode.m; sourceTree = "<group>"; };
 		CA866CED1822B4A100B552A5 /* KiiBlocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiiBlocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA866CF01822B4A100B552A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CA866CF21822B4A100B552A5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 				CA866D081822B4A100B552A5 /* ViewController.m */,
 				CA866D0A1822B4A100B552A5 /* MyScene.h */,
 				CA866D0B1822B4A100B552A5 /* MyScene.m */,
+				CA0442B718240EA3007C0AC9 /* BlockNode.h */,
+				CA0442B818240EA3007C0AC9 /* BlockNode.m */,
 				CA866D0D1822B4A100B552A5 /* Spaceship.png */,
 				CA866D0F1822B4A100B552A5 /* Images.xcassets */,
 				CA866CF91822B4A100B552A5 /* Supporting Files */,
@@ -185,6 +190,7 @@
 				CA866D091822B4A100B552A5 /* ViewController.m in Sources */,
 				CA866D031822B4A100B552A5 /* AppDelegate.m in Sources */,
 				CA866CFF1822B4A100B552A5 /* main.m in Sources */,
+				CA0442B918240EA3007C0AC9 /* BlockNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
