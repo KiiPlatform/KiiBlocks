@@ -27,6 +27,19 @@ The second part in a video series for building an iOS game using SpriteKit and K
 
 > Relevant code is under the tag **tutorial-2** located [here](https://github.com/KiiPlatform/KiiBlocks/releases/tag/tutorial-2)
 
+### Part 3: User Interaction
+The third part in a video series for building an iOS game using SpriteKit and Kii Cloud. This installment will show how to create user interaction with your game board - including some logic for the game to behave the way we want it to!
+
+> See the video here: [http://www.youtube.com/watch?v=pf-oykYjLZk](http://www.youtube.com/watch?v=pf-oykYjLZk)
+
+> Relevant code is under the tag **tutorial-3** located [here](https://github.com/KiiPlatform/KiiBlocks/releases/tag/tutorial-3)
+
+### Part 4: Scoring and Gamification
+The fourth part in a video series for building an iOS game using SpriteKit and Kii Cloud. This installment will show how to implement scoring in our game and also adding a dynamic timer with proper game states.
+
+> See the video here: [http://www.youtube.com/watch?v=n8oAWFDvfxM](http://www.youtube.com/watch?v=n8oAWFDvfxM)
+
+> Relevant code is under the tag **tutorial-4** located [here](https://github.com/KiiPlatform/KiiBlocks/releases/tag/tutorial-4)
 
 ## What is Kii Cloud?
 [Kii Cloud](http://developer.kii.com "Kii Cloud") is a Mobile-Backend-as-a-Service (MBaaS) which provides client SDKs for you to build a cloud-connected application without ever building or maintaining any servers or databases. Kii Cloud scales with your app and provides a reliable backend, allowing you to get your app up and running in a fraction of the time. Learn more at [http://developer.kii.com](http://developer.kii.com "Kii Cloud")

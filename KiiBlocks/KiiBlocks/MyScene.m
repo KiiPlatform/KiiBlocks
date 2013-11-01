@@ -24,9 +24,25 @@
 #define COLUMNS         6
 #define ROWS            7
 #define MIN_BLOCK_BUST  2
+#define LEVEL_TIME      05.0f
+
+// our possible game states
+typedef enum {
+    STOPPED,
+    STARTING,
+    PLAYING
+} GameState;
 
 @interface MyScene() {
     NSArray *_colors;
+    
+    SKLabelNode *_scoreLabel;
+    SKLabelNode *_timerLabel;
+    
+    NSUInteger _score;
+    
+    GameState _gameState;
+    CFTimeInterval _startedTime;
 }
 
 - (NSArray*) getAllBlocks;
@@ -58,6 +74,24 @@
         
         // add the floor to our scene
         [self addChild:floor];
+        
+        // add a score label to our scene
+        _scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _scoreLabel.text = @"Score: 0";
+        _scoreLabel.fontColor = [UIColor whiteColor];
+        _scoreLabel.fontSize = 24.0f;
+        _scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _scoreLabel.position = CGPointMake(10, 10);
+        [self.scene addChild:_scoreLabel];
+
+        // add the timer label to our scene
+        _timerLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _timerLabel.text = @"Time: 0";
+        _timerLabel.fontColor = [UIColor whiteColor];
+        _timerLabel.fontSize = 24.0f;
+        _timerLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
+        _timerLabel.position = CGPointMake(310, 10);
+        [self.scene addChild:_timerLabel];
         
         
         // iterate through however many rows we want
@@ -182,6 +216,12 @@
         // ensure that there are enough connected blocks selected
         if(objectsToRemove.count >= MIN_BLOCK_BUST) {
             
+            // if the user tapped on a valid block while the game is stopped,
+            // it's their indication that the game should now start
+            if(_gameState == STOPPED) {
+                _gameState = STARTING; // let it be so :)
+            }
+            
             // iterate through everything we need to delete
             for(BlockNode *deleteNode in objectsToRemove) {
                 
@@ -194,6 +234,12 @@
                         --testNode.row;
                     }
                 }
+                
+                // whenever a block is destroyed, increment the score
+                ++_score;
+                
+                // update our score label with the current score
+                _scoreLabel.text = [NSString stringWithFormat:@"Score: %d", _score];
             }
             
             
@@ -247,8 +293,57 @@
     
 }
 
+// called when the game is over
+- (void) gameEnded
+{
+    // indicate our game state as stopped
+    _gameState = STOPPED;
+    
+    // create a message to let the user know their score
+    NSString *message = [NSString stringWithFormat:@"You scored %d this time", _score];
+    
+    // show the message to the user
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game over!"
+                                                 message:message
+                                                delegate:nil
+                                       cancelButtonTitle:@"Ok"
+                                       otherButtonTitles:nil];
+    [av show];
+    
+    // reset the score tracker for the next game
+    _score = 0;
+}
+
+/* Called before each frame is rendered */
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    
+    // if our player has indicated the start of the game
+    if(_gameState == STARTING) {
+        
+        // note the time for us to update the timer
+        _startedTime = currentTime;
+        
+        // update our current game state
+        _gameState = PLAYING;
+    }
+    
+    // if we are playing the game, make any updates that are needed
+    if(_gameState == PLAYING) {
+        
+        // figure out how much time is left (rounded for clarity)
+        int timeLeftRounded = ceil(LEVEL_TIME + (_startedTime - currentTime));
+        
+        // update our timer label for the user
+        _timerLabel.text = [NSString stringWithFormat:@"Time: %d", timeLeftRounded];
+        
+        // if we have no time left, the game is over
+        if(timeLeftRounded == 0) {
+            
+            // call our game over method
+            [self gameEnded];
+        }
+        
+    }
     
     // go through all the blocks in our scene
     for(SKNode *node in self.scene.children) {
