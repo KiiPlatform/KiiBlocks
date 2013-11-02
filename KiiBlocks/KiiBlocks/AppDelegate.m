@@ -25,8 +25,14 @@
 {
     // Override point for customization after application launch.
     // Initialize the Kii SDK!
-    [Kii beginWithID:@"be555a08"
-              andKey:@"1b844638ab65ad6d290acaa6811c6b3f"
+    
+    NSString *appID = @"< ADD YOUR OWN APP ID AND KEY >";
+    NSString *appKey = @"< GO TO DEVELOPER.KII.COM FOR A FREE ACCOUNT >";
+    
+    assert(![appID isEqualToString:@"< ADD YOUR OWN APP ID AND KEY >"]);
+    
+    [Kii beginWithID:appID
+              andKey:appKey
              andSite:kiiSiteUS];
     
     return YES;

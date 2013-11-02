@@ -7,6 +7,13 @@ Follow the videos below if it's your first time getting into SpriteKit for a ful
 
 The game utilizes [Kii Cloud](http://en.kii.com/develop/mobile-backend/) for user management, leaderboard and game analytics.
 
+## Installing the project
+The project is open source and fully available to tweak, change, use, etc. To install the project on your machine, you simply need to download the git repository as shown below:
+
+> Note: KiiBlocks depends on **KiiToolkit** which is included as a submodule. The code below will recursively clone the submodules included within the KiiBlocks project
+
+    $ git clone --recursive https://github.com/KiiPlatform/KiiBlocks  
+
 
 ## Video Tutorials
 There is an ongoing video series dedicated to the development of this project, aimed to teach about SpriteKit, Kii Cloud and general iOS game development. If you're new to SpriteKit, start at the beginning - or jump around to what looks most relevant to you.
