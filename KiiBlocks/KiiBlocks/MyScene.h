@@ -19,6 +19,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface MyScene : SKScene
+@interface MyScene : SKScene <UIAlertViewDelegate>
+
+@property (nonatomic, weak) UIViewController *parentViewController;
 
 @end

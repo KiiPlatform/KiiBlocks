@@ -19,6 +19,7 @@
 
 #import "MyScene.h"
 #import "BlockNode.h"
+#import "LeaderboardViewController.h"
 
 // define some class-wide attributes for our scene
 #define COLUMNS         6
@@ -293,6 +294,75 @@ typedef enum {
     
 }
 
+// call this method to show the modal leaderboard view
+- (void) showLeaderboard
+{
+    // create the leaderboard - which subclasses KTTableViewController
+    LeaderboardViewController *lvc = [[LeaderboardViewController alloc] init];
+    
+    // set the user's last score for viewing
+    lvc.userScore = _score;
+    
+    // tell the table which bucket to retrieve the data from
+    lvc.bucket = [Kii bucketWithName:@"scores"];
+    
+    // create a query to retrieve the scores
+    KiiQuery *query = [KiiQuery queryWithClause:nil];
+    [query sortByDesc:@"score"];
+    [query setLimit:20];
+    
+    // set the query to the leaderboard view controller
+    lvc.query = query;
+    
+    // show the leaderboard
+    [self.parentViewController presentViewController:lvc animated:TRUE completion:nil];
+    
+    // pull the data from the server
+    [lvc refreshQuery];
+    
+    // reset the score tracker for the next game
+    _score = 0;
+}
+
+// when the user has clicked 'ok' after viewing their score...
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    // let them know we're uploading their score
+    [KTLoader showLoader:@"Uploading Score..."];
+    
+    // create their score as a KiiObject
+    KiiObject *scoreObject = [[Kii bucketWithName:@"scores"] createObject];
+    
+    // fill the object with the score and username
+    [scoreObject setObject:[NSNumber numberWithInt:_score] forKey:@"score"];
+    [scoreObject setObject:[KiiUser currentUser].username forKey:@"username"];
+    
+    // save the score to the cloud bucket "scores"
+    [scoreObject saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        // see if there was an error (if not, was successful!)
+        if(error == nil) {
+            
+            // hide the loader
+            [KTLoader hideLoader];
+            
+            // show the leaderboard
+            [self showLeaderboard];
+        }
+        
+        // something bad happened
+        else {
+            
+            // tell the user
+            [KTLoader showLoader:@"Error saving!"
+                        animated:TRUE
+                   withIndicator:KTLoaderIndicatorError
+                 andHideInterval:KTLoaderDurationAuto];
+        }
+    }];
+}
+
 // called when the game is over
 - (void) gameEnded
 {
@@ -305,13 +375,10 @@ typedef enum {
     // show the message to the user
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game over!"
                                                  message:message
-                                                delegate:nil
+                                                delegate:self
                                        cancelButtonTitle:@"Ok"
                                        otherButtonTitles:nil];
     [av show];
-    
-    // reset the score tracker for the next game
-    _score = 0;
 }
 
 /* Called before each frame is rendered */

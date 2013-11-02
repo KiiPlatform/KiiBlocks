@@ -1,0 +1,3 @@
+[submodule "KiiBlocks/KiiToolkit-iOS"]
+	path = KiiBlocks/KiiToolkit-iOS
+	url = https://github.com/KiiPlatform/KiiToolkit-iOS.git

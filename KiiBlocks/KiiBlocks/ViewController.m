@@ -22,6 +22,20 @@
 
 @implementation ViewController
 
+// when the view controller appears (on launch)
+- (void) viewDidAppear:(BOOL)animated
+{
+    
+    // we check to see if there is a user logged in
+    if(![KiiUser loggedIn]) {
+        
+        // if not, show a login view
+        KTLoginViewController *lvc = [[KTLoginViewController alloc] init];
+        [self presentViewController:lvc animated:TRUE completion:nil];
+        
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,8 +46,9 @@
 //    skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+    MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    scene.parentViewController = self; // make this view controller accessible to our scene
     
     // Present the scene.
     [skView presentScene:scene];
