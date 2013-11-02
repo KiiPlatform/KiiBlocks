@@ -10,7 +10,7 @@ The game utilizes [Kii Cloud](http://en.kii.com/develop/mobile-backend/) for use
 ## Installing the project
 The project is open source and fully available to tweak, change, use, etc. To install the project on your machine, you simply need to download the git repository as shown below:
 
-> Note: KiiBlocks depends on **KiiToolkit** which is included as a submodule. The code below will recursively clone the submodules included within the KiiBlocks project
+> Note: KiiBlocks depends on **[KiiToolkit](https://github.com/KiiPlatform/KiiToolkit-iOS)** which is included as a submodule. The code below will recursively clone the submodules included within the KiiBlocks project
 
     $ git clone --recursive https://github.com/KiiPlatform/KiiBlocks  
     
@@ -64,3 +64,12 @@ Developers at Kii are the main contributors, but it is completely open source un
 
 ## What is Kii Cloud?
 [Kii Cloud](http://en.kii.com/develop/ "Kii Cloud") is a Mobile-Backend-as-a-Service (MBaaS) which provides client SDKs for you to build a cloud-connected application without ever building or maintaining any servers or databases. Kii Cloud scales with your app and provides a reliable backend, allowing you to get your app up and running in a fraction of the time. Learn more at [http://kii.com](http://en.kii.com/develop/ "Kii Cloud")
+
+
+## Issues Installing?
+If you are having trouble installing the code from a tagged release - or are getting errors about files not being found - be sure that you have the KiiToolkit-iOS directory within the project (and that there are files in it).
+
+**[KiiToolkit](https://github.com/KiiPlatform/KiiToolkit-iOS)** is included as a submodule to this project, and is required for a successful build. 
+
+For a great tutorial about git submodules, check out [this page](http://git-scm.com/book/en/Git-Tools-Submodules)
+
