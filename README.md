@@ -13,6 +13,9 @@ The project is open source and fully available to tweak, change, use, etc. To in
 > Note: KiiBlocks depends on **KiiToolkit** which is included as a submodule. The code below will recursively clone the submodules included within the KiiBlocks project
 
     $ git clone --recursive https://github.com/KiiPlatform/KiiBlocks  
+    
+
+For a great tutorial about git submodules, check out [this page](http://git-scm.com/book/en/Git-Tools-Submodules)
 
 
 ## Video Tutorials
