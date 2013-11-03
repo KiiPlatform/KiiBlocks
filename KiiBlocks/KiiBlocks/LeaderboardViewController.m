@@ -8,6 +8,8 @@
 
 #import "LeaderboardViewController.h"
 
+#import <KiiSDK/Kii.h>
+
 @implementation LeaderboardViewController
 
 // called when the user clicks the 'done' button

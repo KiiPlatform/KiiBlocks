@@ -19,6 +19,8 @@
 
 #import "AppDelegate.h"
 
+#import <KiiSDK/Kii.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -26,8 +28,8 @@
     // Override point for customization after application launch.
     // Initialize the Kii SDK!
     
-    NSString *appID = @"< ADD YOUR OWN APP ID AND KEY >";
-    NSString *appKey = @"< GO TO DEVELOPER.KII.COM FOR A FREE ACCOUNT >";
+    NSString *appID = @"be555a08";
+    NSString *appKey = @"1b844638ab65ad6d290acaa6811c6b3f";
     
     assert(![appID isEqualToString:@"< ADD YOUR OWN APP ID AND KEY >"]);
     

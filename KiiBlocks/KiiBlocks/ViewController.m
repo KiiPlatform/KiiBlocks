@@ -19,21 +19,72 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
+#import "KiiToolkit.h"
+
+#import <KiiSDK/Kii.h>
+
+#define KII_ACCESS_TOKEN    @"kii-token"
+
+@interface ViewController() {
+    BOOL _loaded;
+}
+
+@end
 
 @implementation ViewController
 
 // when the view controller appears (on launch)
 - (void) viewDidAppear:(BOOL)animated
 {
-    
-    // we check to see if there is a user logged in
-    if(![KiiUser loggedIn]) {
+    // we only want to do auth logic if the app is just opened
+    if(!_loaded) {
+
+        // see if there's a stored user token
+        NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:KII_ACCESS_TOKEN];
         
-        // if not, show a login view
-        KTLoginViewController *lvc = [[KTLoginViewController alloc] init];
-        [self presentViewController:lvc animated:TRUE completion:nil];
+        // if we have a token
+        if(token != nil) {
+            
+            // make sure it's valid, but do it in the background
+            [KiiUser authenticateWithToken:token
+                                  andBlock:^(KiiUser *user, NSError *error) {
+                                      if(error == nil) {
+                                          
+                                          NSString *message = [NSString stringWithFormat:@"Welcome back %@", user.username];
+                                          
+                                          KTAlertBar *bar = (KTAlertBar*)[[KTAlert alloc] initWithType:KTAlertTypeBar
+                                                                                            withMessage:message
+                                                                                            andDuration:KTAlertDurationLong];
+
+                                          [bar setBackgroundColors:[UIColor colorWithHex:@"009C00"], [UIColor colorWithHex:@"005404"], nil];
+                                          [(KTAlert*)bar show];
+                                          
+                                      } else {
+                                          
+                                          NSString *message = @"Couldn't log in - won't post scores";
+                                          [KTAlert showAlert:KTAlertTypeBar
+                                                 withMessage:message
+                                                 andDuration:KTAlertDurationLong];
+                                          
+                                      }
+                                  }];
+            
+        }
         
+        // don't have a token yet, get one
+        else {
+            
+            // if not, show a login view
+            KTLoginViewController *lvc = [[KTLoginViewController alloc] init];
+            lvc.delegate = self;
+            [self presentViewController:lvc animated:TRUE completion:nil];
+        }
+
+        // set the flag, indicating that we've tried login
+        _loaded = TRUE;
     }
+    
+
 }
 
 - (void)viewDidLoad
@@ -73,5 +124,29 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - KTLoginView delegate
+- (void) didFinishAuthenticating:(KiiUser*)user
+                       withError:(NSError*)error
+{
+    NSLog(@"Did finish authing: %@ with error: %@", user, error);
+    if(error == nil) {
+        NSLog(@"atoken: %@", user.accessToken);
+        [[NSUserDefaults standardUserDefaults] setObject:user.accessToken forKey:KII_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+- (void) didFinishRegistering:(KiiUser*)user
+                    withError:(NSError*)error
+{
+    NSLog(@"Did finish registering: %@ with error: %@", user, error);
+    if(error == nil) {
+        NSLog(@"rtoken: %@", user.accessToken);
+        [[NSUserDefaults standardUserDefaults] setObject:user.accessToken forKey:KII_ACCESS_TOKEN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 
 @end

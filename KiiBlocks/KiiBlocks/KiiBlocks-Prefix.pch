@@ -15,5 +15,3 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#import <KiiSDK/Kii.h>
-#import "KiiToolkit.h"

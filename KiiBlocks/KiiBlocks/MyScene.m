@@ -21,6 +21,9 @@
 #import "BlockNode.h"
 #import "LeaderboardViewController.h"
 
+#import "KiiToolkit.h"
+#import <KiiSDK/Kii.h>
+
 // define some class-wide attributes for our scene
 #define COLUMNS         6
 #define ROWS            7
