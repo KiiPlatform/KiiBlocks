@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA0442B918240EA3007C0AC9 /* BlockNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0442B818240EA3007C0AC9 /* BlockNode.m */; };
+		CA0B07BA1826DCBA003E8811 /* KTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0B07B91826DCBA003E8811 /* KTDevice.m */; };
 		CA116ACF182468030037AB59 /* KiiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA116ACE182468030037AB59 /* KiiSDK.framework */; };
 		CA116AD1182468180037AB59 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA116AD0182468180037AB59 /* MobileCoreServices.framework */; };
 		CA116AD3182468200037AB59 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA116AD2182468200037AB59 /* Accounts.framework */; };
@@ -100,6 +101,8 @@
 /* Begin PBXFileReference section */
 		CA0442B718240EA3007C0AC9 /* BlockNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockNode.h; sourceTree = "<group>"; };
 		CA0442B818240EA3007C0AC9 /* BlockNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockNode.m; sourceTree = "<group>"; };
+		CA0B07B81826DCBA003E8811 /* KTDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTDevice.h; sourceTree = "<group>"; };
+		CA0B07B91826DCBA003E8811 /* KTDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTDevice.m; sourceTree = "<group>"; };
 		CA116ACE182468030037AB59 /* KiiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiiSDK.framework; sourceTree = "<group>"; };
 		CA116AD0182468180037AB59 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CA116AD2182468200037AB59 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -567,6 +570,8 @@
 			isa = PBXGroup;
 			children = (
 				CAB59D5A182562D600B5C2DB /* Categories */,
+				CA0B07B81826DCBA003E8811 /* KTDevice.h */,
+				CA0B07B91826DCBA003E8811 /* KTDevice.m */,
 				CAB59D70182562D600B5C2DB /* KTNetworkingUtilities.h */,
 				CAB59D71182562D600B5C2DB /* KTNetworkingUtilities.m */,
 				CAB59D72182562D600B5C2DB /* KTUtilities.h */,
@@ -784,6 +789,7 @@
 				CAB59DB3182562D600B5C2DB /* NSMutableArray+KTUtilities.m in Sources */,
 				CA866D031822B4A100B552A5 /* AppDelegate.m in Sources */,
 				CA866CFF1822B4A100B552A5 /* main.m in Sources */,
+				CA0B07BA1826DCBA003E8811 /* KTDevice.m in Sources */,
 				CAB59DA6182562D600B5C2DB /* KTAlertToast.m in Sources */,
 				CAB59DA3182562D600B5C2DB /* KTTableViewController.m in Sources */,
 				CAB59DB7182562D600B5C2DB /* UIView+KTUtilities.m in Sources */,
