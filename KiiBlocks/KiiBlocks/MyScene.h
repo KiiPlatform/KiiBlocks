@@ -23,4 +23,6 @@
 
 @property (nonatomic, weak) UIViewController *parentViewController;
 
+- (void) showStatus:(NSString*)message;
+
 @end

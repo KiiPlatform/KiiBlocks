@@ -10,7 +10,4 @@
 
 @interface LeaderboardViewController : KTTableViewController
 
-// allow the user score to be set from outside this class
-@property (nonatomic, assign) NSUInteger userScore;
-
 @end

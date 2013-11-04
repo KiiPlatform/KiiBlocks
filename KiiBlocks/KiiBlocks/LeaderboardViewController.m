@@ -9,8 +9,43 @@
 #import "LeaderboardViewController.h"
 
 #import <KiiSDK/Kii.h>
+#import "KiiToolkit.h"
+
+@interface LeaderboardViewController() {
+    UISegmentedControl *_segmentControl;
+}
+
+@end
 
 @implementation LeaderboardViewController
+
+- (void) getScores
+{
+    // TODO: double-check loading indicators for leaderboard
+    KiiClause *clause = nil;
+    
+    if([KiiUser loggedIn] && _segmentControl.selectedSegmentIndex == 0) {
+        clause = [KiiClause equals:@"user" value:[KiiUser currentUser]];
+    }
+    
+    // create a query to retrieve the scores
+    KiiQuery *query = [KiiQuery queryWithClause:clause];
+    [query sortByDesc:@"score"];
+    
+    // set the query to the leaderboard view controller
+    self.query = query;
+    
+    // pull the data from the server
+    [self refreshQuery];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    // tell the controller which bucket to retrieve the data from
+    self.bucket = [Kii bucketWithName:@"scores"];
+
+    [self getScores];
+}
 
 // called when the user clicks the 'done' button
 - (void) closeView:(id)sender
@@ -31,7 +66,13 @@
     
     // set the textlabels of the subtitled table view cell
     cell.textLabel.text = [[object getObjectForKey:@"score"] description];
-    cell.detailTextLabel.text = [object getObjectForKey:@"username"];
+    
+    NSString *username = [object getObjectForKey:@"username"];
+    NSString *timeAgo = [object.created timeAgo:FALSE];
+    NSString *detail = [NSString stringWithFormat:@"%@ - %@", username, timeAgo];
+    cell.detailTextLabel.text = detail;
+    
+    [object describe];
     
     return cell;
 }
@@ -40,24 +81,35 @@
 - (UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // create the main header view
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 48.0f)];
     header.backgroundColor = [UIColor orangeColor];
     
     // add a 'done' button that will close the view controller
     UIButton *close = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [close setTitle:@"Done" forState:UIControlStateNormal];
-    close.frame = CGRectMake(260, 20, 60, 40);
+    [close setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    close.frame = CGRectMake(260, 0, 60, 48.0f);
     [close addTarget:self action:@selector(closeView:) forControlEvents:UIControlEventTouchUpInside];
     [header addSubview:close];
     
     // add the user's score label to the header
-    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 60, 320, 40)];
+    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 48.0f)];
     scoreLabel.backgroundColor = [UIColor clearColor];
     scoreLabel.font = [UIFont boldSystemFontOfSize:18.0f];
     scoreLabel.textColor = [UIColor whiteColor];
     scoreLabel.textAlignment = NSTextAlignmentCenter;
-    scoreLabel.text = [NSString stringWithFormat:@"Your score: %d", _userScore];
+    scoreLabel.text = @"Leaderboard"; // [NSString stringWithFormat:@"Your score: %d", _userScore];
     [header addSubview:scoreLabel];
+    
+    if([KiiUser loggedIn] && _segmentControl == nil) {
+        _segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"My Scores", @"All Scores"]];
+        _segmentControl.frame = CGRectMake(20, 58, 280, 30);
+        _segmentControl.tintColor = [UIColor whiteColor];
+        _segmentControl.selectedSegmentIndex = 0;
+        [_segmentControl addTarget:self action:@selector(getScores) forControlEvents:UIControlEventValueChanged];
+    }
+
+    [header addSubview:_segmentControl];
     
     return header;
 }
@@ -65,7 +117,27 @@
 // set the header height - required by the uitableviewcontroller delegate
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 100.0f;
+    return (_segmentControl == nil) ? 48.0f : _segmentControl.frame.origin.y + _segmentControl.frame.size.height + 10.0f;
 }
+
+
+#pragma mark - KTTableViewDelegate
+- (void) tableDidStartLoading
+{
+    [KTLoader showLoader:@"Loading leaderboard..."];
+}
+
+- (void) tableDidFinishLoading:(NSError*)error
+{
+    if(error == nil) {
+        [KTLoader hideLoader];
+    } else {
+        [KTLoader showLoader:@"Error loading leaderboard"
+                    animated:TRUE
+               withIndicator:KTLoaderIndicatorError
+             andHideInterval:KTLoaderDurationAuto];
+    }
+}
+
 
 @end

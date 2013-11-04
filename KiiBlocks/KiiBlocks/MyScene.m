@@ -28,7 +28,7 @@
 #define COLUMNS         6
 #define ROWS            7
 #define MIN_BLOCK_BUST  2
-#define LEVEL_TIME      05.0f
+#define LEVEL_TIME      5.0f
 
 // our possible game states
 typedef enum {
@@ -42,6 +42,11 @@ typedef enum {
     
     SKLabelNode *_scoreLabel;
     SKLabelNode *_timerLabel;
+    SKLabelNode *_startLabel;
+    SKLabelNode *_statusLabel;
+    
+    SKSpriteNode *_settingsButton;
+    SKSpriteNode *_leaderboardButton;
     
     NSUInteger _score;
     
@@ -50,6 +55,7 @@ typedef enum {
 }
 
 - (NSArray*) getAllBlocks;
+- (void) showLeaderboard;
 
 @end
 
@@ -59,7 +65,7 @@ typedef enum {
     if (self = [super initWithSize:size]) {
         
         // The background color for our scene
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.backgroundColor = [UIColor blackColor]; // [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
         // set the gravity of our world
         self.physicsWorld.gravity = CGVectorMake(0, -8.f);
@@ -68,35 +74,60 @@ typedef enum {
         _colors = @[[UIColor greenColor], [UIColor blueColor], [UIColor yellowColor], [UIColor purpleColor]];
 
         // create the floor for our scene
-        SKSpriteNode *floor = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:CGSizeMake(320, 40)];
+        SKSpriteNode *floor = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:CGSizeMake(320, 50)];
         
         // set up its physics body and set attributes
         floor.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:floor.size];
         floor.physicsBody.restitution = 0.f;
         floor.physicsBody.dynamic = FALSE; // other objects react to it, but gravity doesn't affect it
-        floor.position = CGPointMake(160, 20);
+        floor.position = CGPointMake(160, 25);
         
         // add the floor to our scene
         [self addChild:floor];
         
         // add a score label to our scene
-        _scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
         _scoreLabel.text = @"Score: 0";
         _scoreLabel.fontColor = [UIColor whiteColor];
-        _scoreLabel.fontSize = 24.0f;
+        _scoreLabel.fontSize = 18.0f;
         _scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        _scoreLabel.position = CGPointMake(10, 10);
+        _scoreLabel.position = CGPointMake(6, self.scene.size.height - 24);
         [self.scene addChild:_scoreLabel];
 
         // add the timer label to our scene
-        _timerLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _timerLabel = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
         _timerLabel.text = @"Time: 0";
         _timerLabel.fontColor = [UIColor whiteColor];
-        _timerLabel.fontSize = 24.0f;
+        _timerLabel.fontSize = 18.0f;
         _timerLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-        _timerLabel.position = CGPointMake(310, 10);
+        _timerLabel.position = CGPointMake(310, self.scene.size.height - 24);
         [self.scene addChild:_timerLabel];
         
+        // create a 'get started' label
+        _startLabel = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
+        _startLabel.text = @"Tap any connected block to start!";
+        _startLabel.fontColor = [UIColor whiteColor];
+        _startLabel.fontSize = 18.0f;
+        _startLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        _startLabel.position = CGPointMake(self.scene.size.width/2, _timerLabel.position.y - 35);
+        [self.scene addChild:_startLabel];
+        
+        _settingsButton = [SKSpriteNode spriteNodeWithImageNamed:@"Settings"];
+        _settingsButton.position = CGPointMake(self.scene.size.width-floor.size.height/2, floor.size.height/2);
+        [self.scene addChild:_settingsButton];
+        
+        _leaderboardButton = [SKSpriteNode spriteNodeWithImageNamed:@"Trophy"];
+        _leaderboardButton.position = CGPointMake(floor.size.height/2, floor.size.height/2);
+        [self.scene addChild:_leaderboardButton];
+        
+        _statusLabel = [SKLabelNode labelNodeWithFontNamed:@"MarkerFelt-Thin"];
+        _statusLabel.fontColor = [UIColor whiteColor];
+        _statusLabel.fontSize = 18.0f;
+        _statusLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        _statusLabel.position = CGPointMake(self.scene.size.width/2, 18);
+        [self.scene addChild:_statusLabel];
+        
+        [self showStatus:@"Logging in..."];
         
         // iterate through however many rows we want
         for(int row=0; row<ROWS; row++) {
@@ -120,11 +151,12 @@ typedef enum {
                 [self.scene addChild:node];
                 
             }
-
+            
         }
         
 
     }
+    
     return self;
 }
 
@@ -293,6 +325,8 @@ typedef enum {
         }
         
         
+    } else if([node isEqual:_leaderboardButton]) {
+        [self showLeaderboard];
     }
     
 }
@@ -303,67 +337,29 @@ typedef enum {
     // create the leaderboard - which subclasses KTTableViewController
     LeaderboardViewController *lvc = [[LeaderboardViewController alloc] init];
     
-    // set the user's last score for viewing
-    lvc.userScore = _score;
-    
-    // tell the table which bucket to retrieve the data from
-    lvc.bucket = [Kii bucketWithName:@"scores"];
-    
-    // create a query to retrieve the scores
-    KiiQuery *query = [KiiQuery queryWithClause:nil];
-    [query sortByDesc:@"score"];
-    [query setLimit:20];
-    
-    // set the query to the leaderboard view controller
-    lvc.query = query;
-    
     // show the leaderboard
     [self.parentViewController presentViewController:lvc animated:TRUE completion:nil];
-    
-    // pull the data from the server
-    [lvc refreshQuery];
-    
-    // reset the score tracker for the next game
-    _score = 0;
+}
+
+- (void) showStatus:(id)message
+{
+    if([message isKindOfClass:[NSString class]]) {
+        _statusLabel.text = message;
+        _statusLabel.hidden = FALSE;
+    } else {
+        _statusLabel.hidden = TRUE;
+    }
+
 }
 
 // when the user has clicked 'ok' after viewing their score...
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
-    // let them know we're uploading their score
-    [KTLoader showLoader:@"Uploading Score..."];
+    // make sure the user wants to view the leaderboard
+    if(buttonIndex != alertView.cancelButtonIndex) {
+        [self showLeaderboard];
+    }
     
-    // create their score as a KiiObject
-    KiiObject *scoreObject = [[Kii bucketWithName:@"scores"] createObject];
-    
-    // fill the object with the score and username
-    [scoreObject setObject:[NSNumber numberWithInt:_score] forKey:@"score"];
-    [scoreObject setObject:[KiiUser currentUser].username forKey:@"username"];
-    
-    // save the score to the cloud bucket "scores"
-    [scoreObject saveWithBlock:^(KiiObject *object, NSError *error) {
-        
-        // see if there was an error (if not, was successful!)
-        if(error == nil) {
-            
-            // hide the loader
-            [KTLoader hideLoader];
-            
-            // show the leaderboard
-            [self showLeaderboard];
-        }
-        
-        // something bad happened
-        else {
-            
-            // tell the user
-            [KTLoader showLoader:@"Error saving!"
-                        animated:TRUE
-                   withIndicator:KTLoaderIndicatorError
-                 andHideInterval:KTLoaderDurationAuto];
-        }
-    }];
 }
 
 // called when the game is over
@@ -372,16 +368,60 @@ typedef enum {
     // indicate our game state as stopped
     _gameState = STOPPED;
     
+    // re-show our start label
+    _startLabel.hidden = FALSE;
+
     // create a message to let the user know their score
-    NSString *message = [NSString stringWithFormat:@"You scored %d this time", _score];
+    NSString *message = [NSString stringWithFormat:@"Congratulations! You scored %d", _score];
     
     // show the message to the user
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game over!"
                                                  message:message
                                                 delegate:self
-                                       cancelButtonTitle:@"Ok"
-                                       otherButtonTitles:nil];
+                                       cancelButtonTitle:@"Play Again"
+                                       otherButtonTitles:@"Leaderboard", nil];
     [av show];
+
+    
+    [self showStatus:@"Uploading score..."];
+    
+    // create their score as a KiiObject
+    KiiObject *scoreObject = [[Kii bucketWithName:@"scores"] createObject];
+    
+    // fill the object with the score and username
+    [scoreObject setObject:[NSNumber numberWithInt:_score] forKey:@"score"];
+    [scoreObject setObject:[KiiUser currentUser].username forKey:@"username"];
+    [scoreObject setObject:[KiiUser currentUser] forKey:@"user"];
+    
+    // save the score to the cloud bucket "scores"
+    [scoreObject saveWithBlock:^(KiiObject *object, NSError *error) {
+        
+        // see if there was an error (if not, was successful!)
+        if(error != nil) {
+            
+            [self showStatus:nil];
+
+            // tell the user
+            [KTLoader showLoader:@"Error saving!"
+                        animated:TRUE
+                   withIndicator:KTLoaderIndicatorError
+                 andHideInterval:KTLoaderDurationAuto];
+        } else {
+            [self showStatus:@"Score posted!"];
+            
+            [NSTimer scheduledTimerWithTimeInterval:5.0f
+                                             target:self
+                                           selector:@selector(showStatus:)
+                                           userInfo:nil
+                                            repeats:FALSE];
+            
+        }
+
+    }];
+
+    
+    // reset the score tracker for the next game
+    _score = 0;
 }
 
 /* Called before each frame is rendered */
@@ -395,6 +435,10 @@ typedef enum {
         
         // update our current game state
         _gameState = PLAYING;
+        
+        // hide the start label
+        _startLabel.hidden = TRUE;
+    
     }
     
     // if we are playing the game, make any updates that are needed

@@ -27,6 +27,7 @@
 
 @interface ViewController() {
     BOOL _loaded;
+    MyScene *_scene;
 }
 
 @end
@@ -50,18 +51,12 @@
                                   andBlock:^(KiiUser *user, NSError *error) {
                                       if(error == nil) {
                                           
-                                          NSString *message = [NSString stringWithFormat:@"Welcome back %@", user.username];
-                                          
-                                          KTAlertBar *bar = (KTAlertBar*)[[KTAlert alloc] initWithType:KTAlertTypeBar
-                                                                                            withMessage:message
-                                                                                            andDuration:KTAlertDurationLong];
-
-                                          [bar setBackgroundColors:[UIColor colorWithHex:@"009C00"], [UIColor colorWithHex:@"005404"], nil];
-                                          [(KTAlert*)bar show];
+                                          NSString *message = [NSString stringWithFormat:@"Welcome back %@!", user.username];
+                                          [_scene showStatus:message];
                                           
                                       } else {
                                           
-                                          NSString *message = @"Couldn't log in - won't post scores";
+                                          NSString *message = @"Unable to log in - score posting disabled";
                                           [KTAlert showAlert:KTAlertTypeBar
                                                  withMessage:message
                                                  andDuration:KTAlertDurationLong];
@@ -97,12 +92,12 @@
 //    skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.parentViewController = self; // make this view controller accessible to our scene
+    _scene = [MyScene sceneWithSize:skView.bounds.size];
+    _scene.scaleMode = SKSceneScaleModeAspectFill;
+    _scene.parentViewController = self; // make this view controller accessible to our scene
     
     // Present the scene.
-    [skView presentScene:scene];
+    [skView presentScene:_scene];
 }
 
 - (BOOL)shouldAutorotate
@@ -134,6 +129,9 @@
         NSLog(@"atoken: %@", user.accessToken);
         [[NSUserDefaults standardUserDefaults] setObject:user.accessToken forKey:KII_ACCESS_TOKEN];
         [[NSUserDefaults standardUserDefaults] synchronize];
+
+        NSString *message = [NSString stringWithFormat:@"Welcome back %@!", user.username];
+        [_scene showStatus:message];
     }
 }
 
@@ -145,6 +143,9 @@
         NSLog(@"rtoken: %@", user.accessToken);
         [[NSUserDefaults standardUserDefaults] setObject:user.accessToken forKey:KII_ACCESS_TOKEN];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSString *message = [NSString stringWithFormat:@"Welcome %@!", user.username];
+        [_scene showStatus:message];
     }
 }
 
