@@ -73,3 +73,7 @@ If you are having trouble installing the code from a tagged release - or are get
 
 For a great tutorial about git submodules, check out [this page](http://git-scm.com/book/en/Git-Tools-Submodules)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/KiiPlatform/kiiblocks/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
